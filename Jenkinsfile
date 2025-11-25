@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        PATH+NODE = "/var/jenkins_home/node-v18.20.4-linux-arm64/bin"
+    }
+
     stages {
         stage('Clone Repository') {
             steps {

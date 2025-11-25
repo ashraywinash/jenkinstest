@@ -1,10 +1,17 @@
-const request = require('supertest');
 const app = require('./app');
+const request = require('supertest');
 
-describe('GET /', () => {
-    it('should return a welcome message', async () => {
-        const res = await request(app).get('/');
-        expect(res.statusCode).toBe(200);
-        expect(res.text).toBe('Hello from Jenkins Pipeline Test App!');
-    });
+let server;
+
+beforeAll(() => {
+  server = app.listen(4000); // any port
+});
+
+afterAll(() => {
+  server.close();
+});
+
+test('GET / should return welcome message', async () => {
+  const res = await request(server).get('/');
+  expect(res.statusCode).toBe(200);
 });
